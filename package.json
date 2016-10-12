@@ -1,0 +1,30 @@
+{
+  "name": "android-yard",
+  "version": "0.0.1",
+  "description": "android record & playback",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LoveKino/android-yard.git"
+  },
+  "keywords": [
+    "android",
+    "record",
+    "playback"
+  ],
+  "author": "ddchen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LoveKino/android-yard/issues"
+  },
+  "homepage": "https://github.com/LoveKino/android-yard#readme",
+  "dependencies": {
+    "expand-android-api": "0.0.3"
+  }
+}
