@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/Users/yuer/workspaceforme/category/career/container/app/freekite/app/business/android-yard/test/TestApp1/aospPatch/src/main/jniLibs"/></dataSet><dataSet config="release"><source path="/Users/yuer/workspaceforme/category/career/container/app/freekite/app/business/android-yard/test/TestApp1/aospPatch/src/release/jniLibs"/></dataSet></merger>

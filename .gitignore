@@ -18,3 +18,4 @@ target
 *.swn
 
 node_modules
+*.gradle
