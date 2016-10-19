@@ -2,8 +2,6 @@ package com.freekite.android.yard;
 
 import android.content.Context;
 
-import com.freekite.android.yard.MonitorCommand.ExecuteCommand;
-
 /**
  * Created by yuer on 10/9/16.
  */
@@ -18,19 +16,6 @@ public class Yard {
     public Yard(Object context, String tag) {
         this.context = (Context) context;
         this.tag = tag;
-
-        MonitorCommand.monitor(this.context, new ExecuteCommand() {
-            @Override
-            public void execute(String command) {
-                /**
-                 * 1. parse command (call command)
-                 * 2. execute command
-                 * 3. send results
-                 */
-                System.out.println("----------------------------------");
-                System.out.println(command);
-            }
-        });
     }
 
     /**

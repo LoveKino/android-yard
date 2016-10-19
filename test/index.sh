@@ -4,12 +4,6 @@ CUR_DIR=$(cd `dirname $0`;pwd);
 
 cd $CUR_DIR;
 
-./buildTestApp.sh
+./testApp1.sh
 
-# run test
-echo "[run app tests]--------------------------------"
-pushd TestApp1
-./gradlew cAT
-popd
-
-./testServer.sh
+../node_modules/.bin/mocha -t 100000 node/**/*.js

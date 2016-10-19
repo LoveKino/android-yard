@@ -100,12 +100,12 @@
         "source": "/Users/yuer/workspaceforme/category/career/container/app/freekite/app/business/android-yard/test/TestApp1/aospPatch/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.2.0/res/drawable-xxhdpi-v4/abc_scrubber_track_mtrl_alpha.9.png"
     },
     {
-        "merged": "/Users/yuer/workspaceforme/category/career/container/app/freekite/app/business/android-yard/test/TestApp1/aospPatch/build/intermediates/res/merged/release/drawable-xxhdpi-v4/abc_textfield_activated_mtrl_alpha.9.png",
-        "source": "/Users/yuer/workspaceforme/category/career/container/app/freekite/app/business/android-yard/test/TestApp1/aospPatch/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.2.0/res/drawable-xxhdpi-v4/abc_textfield_activated_mtrl_alpha.9.png"
-    },
-    {
         "merged": "/Users/yuer/workspaceforme/category/career/container/app/freekite/app/business/android-yard/test/TestApp1/aospPatch/build/intermediates/res/merged/release/drawable-xxhdpi-v4/abc_ab_share_pack_mtrl_alpha.9.png",
         "source": "/Users/yuer/workspaceforme/category/career/container/app/freekite/app/business/android-yard/test/TestApp1/aospPatch/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.2.0/res/drawable-xxhdpi-v4/abc_ab_share_pack_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "/Users/yuer/workspaceforme/category/career/container/app/freekite/app/business/android-yard/test/TestApp1/aospPatch/build/intermediates/res/merged/release/drawable-xxhdpi-v4/abc_textfield_activated_mtrl_alpha.9.png",
+        "source": "/Users/yuer/workspaceforme/category/career/container/app/freekite/app/business/android-yard/test/TestApp1/aospPatch/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.2.0/res/drawable-xxhdpi-v4/abc_textfield_activated_mtrl_alpha.9.png"
     },
     {
         "merged": "/Users/yuer/workspaceforme/category/career/container/app/freekite/app/business/android-yard/test/TestApp1/aospPatch/build/intermediates/res/merged/release/drawable-xxhdpi-v4/abc_btn_check_to_on_mtrl_015.png",

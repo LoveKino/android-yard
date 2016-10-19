@@ -1,10 +1,51 @@
 'use strict';
 
-const CHUNK_BOUNDARY = '[*mess-chunk-bridge-pc-line*]';
+let Parser = require('stream-token-parser');
 
-const CHUNK_ID_DELIMITER = '|';
+let {
+    forEach
+} = require('bolzano');
 
-const CHUNK_END = '[*mess-chunk-bridge-pc-end*]';
+const LINE_PREFIX = '____mess_chunk_bridge_pc_line_start____';
+
+const LINE_END = '____mess_chunk_bridge_pc_line_end____';
+
+const BLOCK_END = '__mess_chunk_bridge_pc_block_end___';
+
+const ID_END = '|';
+
+let parse = Parser([{
+    word: new RegExp(`${LINE_PREFIX}.*${ID_END}`),
+    name: 'block_line_start',
+    isPart: (v) => {
+        if (LINE_PREFIX.indexOf(v) === 0) {
+            return true;
+        } else if (v.indexOf(LINE_PREFIX) === 0) {
+            return v.indexOf(ID_END) === -1 || v[v.length - 1] === ID_END;
+        }
+        return false;
+    },
+    priority: 8
+}, {
+    word: LINE_END,
+    name: 'block_line_end',
+    priority: 8
+}, {
+    word: new RegExp(`${BLOCK_END}.*`),
+    name: 'block_end',
+    isPart: (v) => {
+        if (BLOCK_END.indexOf(v) === 0) {
+            return true;
+        } else if (v.indexOf(BLOCK_END) === 0) {
+            return v.indexOf('\n') === -1;
+        }
+        return false;
+    }
+}, {
+    word: /[\s\S]/,
+    name: 'mess',
+    priority: 0
+}]);
 
 /**
  * node default chunk max size is 8192
@@ -13,40 +54,68 @@ const CHUNK_END = '[*mess-chunk-bridge-pc-end*]';
  *
  * data format
  *
- * some mess ${commandJsonPath}${CHUNK_BOUNDARY}${chunkId}${CHUNK_ID_DELIMITER} ...
- * some mess ${commandJsonPath}${CHUNK_BOUNDARY}${chunkId}${CHUNK_ID_DELIMITER} ...
- * some mess ${commandJsonPath}${CHUNK_BOUNDARY}${chunkId}${CHUNK_ID_DELIMITER} ...
+ * some mess ${BLOCK_BOUNDRY}${chunkId}${CHUNK_ID_DELIMITER} ... ${BLOCK_BOUNDRY_END}
+ * some mess ${BLOCK_BOUNDRY}${chunkId}${CHUNK_ID_DELIMITER} ... ${BLOCK_BOUNDRY_END}
+ * some mess ${BLOCK_BOUNDRY}${chunkId}${CHUNK_ID_DELIMITER} ... ${BLOCK_BOUNDRY_END}
  * ...
- * some mess ${commandJsonPath}${CHUNK_END}${chunkId}
+ * some mess ${BLOCK_END}${chunkId}
+ *
+ *
+ * eg:
+ *
+ * noise...
+ * noise...____mess_chunk_bridge_pc_line_start____[0]|
+ * {"channel":"[0]",
+ * ____mess_chunk_bridge_pc_line_end____
+ *
+ * noise...
+ * ____mess_chunk_bridge_pc_line_start____[0]|
+ * "data":{"type": "request", "data": {"id": 1, "source":{"type":"public", "name":"add", "args":[{"type":"jsonItem","arg":1},{"type":"jsonItem","arg":2}]}}}}____mess_chunk_bridge_pc_line_end____
+ *
+ * noise... __mess_chunk_bridge_pc_block_end___[0]
  */
 
-module.exports = (commandJsonPath) => {
+let messParser = () => {
     let chunkMap = {};
+
     return (chunk) => {
-        let str = chunk.toString();
-        if (str.indexOf(commandJsonPath) === -1) return null;
-        let boundryIndex = str.indexOf(CHUNK_BOUNDARY);
-        if (boundryIndex !== -1) {
-            let next = str.substring(boundryIndex + 1);
-            let chunkIdIndex = next.indexOf(CHUNK_ID_DELIMITER);
-            if (chunkIdIndex !== -1) {
-                let chunkId = next.substring(0, CHUNK_ID_DELIMITER);
-                chunkMap[chunkId] = chunkMap[chunkId] || [];
-                chunkMap[chunkId].push(next.substring(CHUNK_ID_DELIMITER + 1));
-            }
-        } else {
-            let chunkEndIndex = str.indexOf(CHUNK_END);
-            if (chunkEndIndex !== -1) {
-                let chunkId = str.indexOf(chunkEndIndex + 1);
-                let data = chunkMap[chunkId].join('');
-                delete chunkMap[chunkId];
+        // add \n to flush
+        let tokens = parse(chunk.toString() + '\n');
+        let lineFlag = false;
+        let blockLine = '';
 
-                return data;
-            }
-        }
+        let blocks = [];
 
-        return null;
+        forEach(tokens, ({
+            text, tokenType
+        }) => {
+            if (tokenType.name === 'block_line_start') {
+                lineFlag = text.substring(LINE_PREFIX.length, text.length - ID_END.length);
+            } else if (tokenType.name === 'block_line_end') {
+                chunkMap[lineFlag] = chunkMap[lineFlag] || [];
+                chunkMap[lineFlag].push(blockLine);
+                lineFlag = false;
+                blockLine = '';
+            } else if (tokenType.name === 'block_end') {
+                let id = text.substring(BLOCK_END.length);
+                if (chunkMap[id]) {
+                    let data = chunkMap[id].join('');
+                    delete chunkMap[id];
+                    blocks.push(data);
+                }
+            } else {
+                if (lineFlag !== false) {
+                    blockLine += text;
+                }
+            }
+        });
+        return blocks;
     };
 };
 
+messParser.LINE_PREFIX = LINE_PREFIX;
+messParser.LINE_END = LINE_END;
+messParser.BLOCK_END = BLOCK_END;
+messParser.ID_END = ID_END;
 
+module.exports = messParser;

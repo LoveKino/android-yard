@@ -27,7 +27,8 @@
   "dependencies": {
     "expand-android-api": "0.0.4",
     "general-bridge": "0.0.1",
-    "spawnp": "0.0.1"
+    "spawnp": "0.0.1",
+    "stream-token-parser": "0.0.1"
   },
   "devDependencies": {
     "mocha": "^3.1.2"

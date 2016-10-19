@@ -1,0 +1,4 @@
+#Wed Oct 19 11:03:38 CST 2016
+base.0=/Users/yuer/workspaceforme/category/career/container/app/freekite/app/business/android-yard/test/TestApp1/aospPatch/build/intermediates/transforms/dex/androidTest/debug/folders/1000/1f/main
+renamed.0=classes.dex
+file.0=/Users/yuer/workspaceforme/category/career/container/app/freekite/app/business/android-yard/test/TestApp1/aospPatch/build/intermediates/transforms/dex/androidTest/debug/folders/1000/1f/main/classes.dex

@@ -16,12 +16,12 @@
         "source": "/Users/yuer/workspaceforme/category/career/container/app/freekite/app/business/android-yard/test/TestApp1/aospPatch/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.2.0/res/drawable-xhdpi-v4/abc_ic_star_black_16dp.png"
     },
     {
-        "merged": "/Users/yuer/workspaceforme/category/career/container/app/freekite/app/business/android-yard/test/TestApp1/aospPatch/build/intermediates/res/merged/release/drawable-xhdpi-v4/abc_ic_menu_selectall_mtrl_alpha.png",
-        "source": "/Users/yuer/workspaceforme/category/career/container/app/freekite/app/business/android-yard/test/TestApp1/aospPatch/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.2.0/res/drawable-xhdpi-v4/abc_ic_menu_selectall_mtrl_alpha.png"
-    },
-    {
         "merged": "/Users/yuer/workspaceforme/category/career/container/app/freekite/app/business/android-yard/test/TestApp1/aospPatch/build/intermediates/res/merged/release/drawable-xhdpi-v4/abc_ic_menu_cut_mtrl_alpha.png",
         "source": "/Users/yuer/workspaceforme/category/career/container/app/freekite/app/business/android-yard/test/TestApp1/aospPatch/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.2.0/res/drawable-xhdpi-v4/abc_ic_menu_cut_mtrl_alpha.png"
+    },
+    {
+        "merged": "/Users/yuer/workspaceforme/category/career/container/app/freekite/app/business/android-yard/test/TestApp1/aospPatch/build/intermediates/res/merged/release/drawable-xhdpi-v4/abc_ic_menu_selectall_mtrl_alpha.png",
+        "source": "/Users/yuer/workspaceforme/category/career/container/app/freekite/app/business/android-yard/test/TestApp1/aospPatch/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.2.0/res/drawable-xhdpi-v4/abc_ic_menu_selectall_mtrl_alpha.png"
     },
     {
         "merged": "/Users/yuer/workspaceforme/category/career/container/app/freekite/app/business/android-yard/test/TestApp1/aospPatch/build/intermediates/res/merged/release/drawable-xhdpi-v4/abc_ic_menu_paste_mtrl_am_alpha.png",

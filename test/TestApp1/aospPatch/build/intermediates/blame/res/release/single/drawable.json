@@ -28,12 +28,12 @@
         "source": "/Users/yuer/workspaceforme/category/career/container/app/freekite/app/business/android-yard/test/TestApp1/aospPatch/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.2.0/res/drawable/abc_ic_arrow_drop_right_black_24dp.xml"
     },
     {
-        "merged": "/Users/yuer/workspaceforme/category/career/container/app/freekite/app/business/android-yard/test/TestApp1/aospPatch/build/intermediates/res/merged/release/drawable/abc_ic_ab_back_material.xml",
-        "source": "/Users/yuer/workspaceforme/category/career/container/app/freekite/app/business/android-yard/test/TestApp1/aospPatch/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.2.0/res/drawable/abc_ic_ab_back_material.xml"
-    },
-    {
         "merged": "/Users/yuer/workspaceforme/category/career/container/app/freekite/app/business/android-yard/test/TestApp1/aospPatch/build/intermediates/res/merged/release/drawable/abc_ic_menu_overflow_material.xml",
         "source": "/Users/yuer/workspaceforme/category/career/container/app/freekite/app/business/android-yard/test/TestApp1/aospPatch/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.2.0/res/drawable/abc_ic_menu_overflow_material.xml"
+    },
+    {
+        "merged": "/Users/yuer/workspaceforme/category/career/container/app/freekite/app/business/android-yard/test/TestApp1/aospPatch/build/intermediates/res/merged/release/drawable/abc_ic_ab_back_material.xml",
+        "source": "/Users/yuer/workspaceforme/category/career/container/app/freekite/app/business/android-yard/test/TestApp1/aospPatch/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.2.0/res/drawable/abc_ic_ab_back_material.xml"
     },
     {
         "merged": "/Users/yuer/workspaceforme/category/career/container/app/freekite/app/business/android-yard/test/TestApp1/aospPatch/build/intermediates/res/merged/release/drawable/abc_ic_clear_material.xml",
