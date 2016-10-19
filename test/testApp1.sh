@@ -24,5 +24,4 @@ adb install $TEST_DIR/app/build/outputs/apk/app-debug.apk
 # run tests
 pushd $TEST_DIR
 ./gradlew cAT
-./buildTestApp.sh $TEST_DIR $TEST_PKG_NAME $TEST_FILE_DIR
 popd
