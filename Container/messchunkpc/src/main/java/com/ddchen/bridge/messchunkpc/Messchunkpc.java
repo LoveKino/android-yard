@@ -38,8 +38,6 @@ public class Messchunkpc {
                  */
                 try {
                     JSONObject jObject = new JSONObject(command);
-                    System.out.println(jObject);
-                    System.out.println(jObject.getString("type"));
                     /**
                      * {
                      *      type: "response",
@@ -100,7 +98,6 @@ public class Messchunkpc {
              */
             @Override
             public void call(String name, Object[] args, HandleCallResult handleCallResult) {
-                System.out.println("++++++++++++++++++++++++");
                 // generate id
                 String id = UUID.randomUUID().toString();
                 // map id
@@ -119,7 +116,6 @@ public class Messchunkpc {
                         argsStr += "," + argItem;
                     }
                 }
-                System.out.println(argsStr);
                 // construct request json
                 MessSender.send("{\n" +
                         "    \"channel\": \"" + channel + "\",\n" +
