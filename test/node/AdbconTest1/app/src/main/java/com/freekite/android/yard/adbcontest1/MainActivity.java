@@ -6,8 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import com.ddchen.bridge.messchunkpc.Messchunkpc;
 import com.ddchen.bridge.messchunkpc.Messchunkpc.Caller;
 import com.ddchen.bridge.messchunkpc.Messchunkpc.HandleCallResult;
+import com.ddchen.bridge.messchunkpc.Messchunkpc.SandboxFunction;
 
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,7 +22,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Caller caller = Messchunkpc.pc(this, channel);
+        Map sandbox = new HashMap();
+        sandbox.put("subtraction", new SandboxFunction() {
+            @Override
+            public Object apply(Object[] args) {
+                System.out.println(args);
+                double a = Double.parseDouble(args[0].toString());
+                double b = Double.parseDouble(args[1].toString());
+                return a - b;
+            }
+        });
+        Caller caller = Messchunkpc.pc(this, channel, sandbox);
 
         caller.call("add", new Object[]{1, 2}, new HandleCallResult() {
             @Override

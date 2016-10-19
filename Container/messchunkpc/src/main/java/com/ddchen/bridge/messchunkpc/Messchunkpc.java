@@ -4,14 +4,48 @@ import android.content.Context;
 
 import com.ddchen.bridge.messchunkpc.MonitorCommand.ExecuteCommand;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Wrapper;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 /**
  * Created by yuer on 10/19/16.
+ */
+
+/**
+ * {
+ * channel: "/data/user/0/com.freekite.android.yard.adbcontest1/files/aosp_hook/command.json",
+ * data: {
+ * type: "request",
+ * data: {
+ * id: 1,
+ * source: {
+ * type: "public",
+ * name: "add",
+ * args: [{
+ * type: "jsonItem",
+ * arg: 1
+ * }, {
+ * type: "jsonItem",
+ * arg: 2
+ * }]
+ * }
+ * }
+ * }
+ * }
+ * <p>
+ * {
+ * type: "response",
+ * data: {
+ * data: 3,
+ * id: "1"
+ * }
+ * }
  */
 
 public class Messchunkpc {
@@ -27,7 +61,11 @@ public class Messchunkpc {
         void handleError(JSONObject errorInfo);
     }
 
-    public static Caller pc(Context context, final String channel) {
+    public interface SandboxFunction {
+        Object apply(Object[] args);
+    }
+
+    public static Caller pc(Context context, final String channel, final Map sandbox) {
         MonitorCommand.monitor(context, new ExecuteCommand() {
             @Override
             public void execute(String command) {
@@ -43,7 +81,19 @@ public class Messchunkpc {
                      *      type: "response",
                      *      data: {
                      *          data: 3,
-                     *          id: 1
+                     *          id: "1"
+                     *      }
+                     * }
+                     *
+                     * {
+                     *      type: "request",
+                     *      data: {
+                     *          id: "122",
+                     *          source: {
+                     *              type: "public",
+                     *              name: "testCallback",
+                     *              args: [{type: "jsonItem", arg: 1}]
+                     *          }
                      *      }
                      * }
                      */
@@ -63,7 +113,58 @@ public class Messchunkpc {
                             System.out.println("missing id " + id + " for id map." + "response json is " + jObject);
                         }
                     } else if (jObject.getString("type").equals("request")) {
-                        // TODO accept request from server
+                        JSONObject data = jObject.getJSONObject("data");
+                        String id = data.getString("id");
+                        JSONObject source = data.getJSONObject("source");
+                        String methodName = source.getString("name");
+                        JSONArray args = source.getJSONArray("args");
+                        try {
+                            // TODO accept request from server
+                            if (sandbox.containsKey(methodName)) {
+                                SandboxFunction fun = (SandboxFunction) sandbox.get(methodName);
+                                Object[] params = new Object[args.length()];
+                                for (int i = 0; i < args.length(); i++) {
+                                    JSONObject arg = args.getJSONObject(i);
+                                    params[i] = arg.get("arg");
+                                }
+                                Object ret = fun.apply(params);
+                                JSONObject wrapData = new JSONObject();
+
+                                JSONObject responseData = new JSONObject();
+                                responseData.put("id", id);
+                                responseData.put("data", ret);
+
+                                wrapData.put("type", "response");
+                                wrapData.put("data", responseData);
+
+                                JSONObject response = new JSONObject();
+
+                                response.put("channel", channel);
+                                response.put("data", wrapData);
+
+                                MessSender.send(response);
+                            } else {
+                                throw new Error("missing method " + methodName);
+                            }
+                        } catch (Exception error) {
+                            JSONObject wrapData = new JSONObject();
+                            JSONObject responseData = new JSONObject();
+
+                            JSONObject errorData = new JSONObject();
+                            errorData.put("msg", error.toString());
+                            responseData.put("id", id);
+                            responseData.put("error", errorData);
+
+                            wrapData.put("type", "response");
+                            wrapData.put("data", responseData);
+
+                            JSONObject response = new JSONObject();
+
+                            response.put("channel", channel);
+                            response.put("data", wrapData);
+
+                            MessSender.send(response);
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

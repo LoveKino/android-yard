@@ -43,7 +43,7 @@ public class ExampleInstrumentedTest {
 
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
-        Caller caller = Messchunkpc.pc(appContext, channel);
+        Caller caller = Messchunkpc.pc(appContext, channel, null);
 
         caller.call("add", new Object[]{1, 2}, new HandleCallResult() {
             @Override
@@ -97,7 +97,7 @@ public class ExampleInstrumentedTest {
 
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
-        Caller caller = Messchunkpc.pc(appContext, channel);
+        Caller caller = Messchunkpc.pc(appContext, channel, null);
 
         JSONObject paramA = new JSONObject();
         paramA.put("a1", 10);
