@@ -3,6 +3,7 @@ package com.freekite.android.yard;
 import android.content.Context;
 
 import com.ddchen.bridge.messchunkpc.Messchunkpc;
+import com.ddchen.bridge.messchunkpc.Messchunkpc.Caller;
 import com.ddchen.bridge.messchunkpc.Messchunkpc.SandboxFunction;
 
 import java.util.HashMap;
@@ -36,7 +37,8 @@ public class Yard {
             }
         });
 
-        Messchunkpc.pc(this.context, channel, sandbox);
+        Caller caller = Messchunkpc.pc(this.context, channel, sandbox);
+        // call freekite apis from caller
     }
 
     /**
