@@ -3,8 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Container.iml" filepath="$PROJECT_DIR$/Container.iml" />
+      <module fileurl="file://$PROJECT_DIR$/aospPatch/aospPatch.iml" filepath="$PROJECT_DIR$/aospPatch/aospPatch.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/messchunkpc/messchunkpc.iml" filepath="$PROJECT_DIR$/messchunkpc/messchunkpc.iml" />
       <module fileurl="file://$PROJECT_DIR$/yard/yard.iml" filepath="$PROJECT_DIR$/yard/yard.iml" />
     </modules>
   </component>

@@ -2,6 +2,12 @@ package com.freekite.android.yard;
 
 import android.content.Context;
 
+import com.ddchen.bridge.messchunkpc.Messchunkpc;
+import com.ddchen.bridge.messchunkpc.Messchunkpc.SandboxFunction;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by yuer on 10/9/16.
  */
@@ -16,10 +22,25 @@ public class Yard {
     public Yard(Object context, String tag) {
         this.context = (Context) context;
         this.tag = tag;
+
+        String pkgName = this.context.getPackageName();
+        String channel = "/data/user/0/" + pkgName + "/files/aosp_hook/command.json";
+
+        Map sandbox = new HashMap();
+        // test
+        // exports native apis to sandbox
+        sandbox.put("subtraction", new SandboxFunction() {
+            @Override
+            public Object apply(Object[] args) {
+                return 100000;
+            }
+        });
+
+        Messchunkpc.pc(this.context, channel, sandbox);
     }
 
     /**
-     * receive infos
+     * receive infos from system
      *
      * @param type
      * @param infos

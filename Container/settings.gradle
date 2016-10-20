@@ -1,1 +1,1 @@
-include ':app', ':yard', ':messchunkpc'
+include ':app', ':yard', ':aospPatch'

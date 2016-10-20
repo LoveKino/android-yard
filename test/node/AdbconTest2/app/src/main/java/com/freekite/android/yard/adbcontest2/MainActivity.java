@@ -26,8 +26,6 @@ public class MainActivity extends AppCompatActivity {
         sandbox.put("subtraction", new SandboxFunction() {
             @Override
             public Object apply(Object[] args) {
-                System.out.println("================");
-                System.out.println(args);
                 double a = Double.parseDouble(args[0].toString());
                 double b = Double.parseDouble(args[1].toString());
                 return a - b;

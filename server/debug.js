@@ -8,7 +8,10 @@ let {
 
 let log = console.log; // eslint-disable-line
 
-let caller = connect('/data/user/0/com.freekite.android.yard.adbcontest1/files/aosp_hook/command.json', {
+let channel = '/data/user/0/com.freekite.android.yard.adbcontest1/files/aosp_hook/command.json';
+// let channel = '/data/user/0/com.freekite.android.container/files/aosp_hook/command.json';
+
+let caller = connect(channel, {
     add: (a, b) => {
         return a + b;
     },

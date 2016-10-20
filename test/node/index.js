@@ -15,20 +15,9 @@ let sleep = (duration) => {
 };
 
 let runAppTest = (testPkgDir) => {
-    // update communication library
-    return spawnp('./updateLibrary.sh', [
-        'messchunkpc',
-        '../Container/messchunkpc',
-        testPkgDir
-    ], {
-        cwd: path.join(__dirname, '..'),
+    return spawnp('./gradlew cAT', [], {
+        cwd: testPkgDir,
         stdio: 'inherit'
-    }).then(() => {
-        // run tests
-        return spawnp('./gradlew cAT', [], {
-            cwd: testPkgDir,
-            stdio: 'inherit'
-        });
     });
 };
 
@@ -36,7 +25,7 @@ let lunchApp = (pkgName, mainPath, testPkgDir) => {
     // update communication library
     return spawnp('./updateLibrary.sh', [
         'messchunkpc',
-        '../Container/messchunkpc',
+        '../Adbcon/messchunkpc',
         testPkgDir
     ], {
         cwd: path.join(__dirname, '..'),
@@ -85,7 +74,7 @@ describe('index', () => {
     it('call app', () => {
         let testPkgName = 'com.freekite.android.yard.adbcontest1';
         let testFile = `/data/user/0/${testPkgName}/files/aosp_hook/command.json`;
-        let testPkgDir = path.join(__dirname, './AdbconTest1');
+        let testPkgDir = path.join(__dirname, '../../Adbcon');
 
         let {
             connect

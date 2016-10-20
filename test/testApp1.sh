@@ -19,6 +19,7 @@ popd
 adb uninstall $TEST_PKG_NAME
 adb install $TEST_DIR/app/build/outputs/apk/app-debug.apk
 
+# deploy yard-dex.jar
 ../bin/deploy.sh $TEST_FILE_DIR
 
 # run tests
