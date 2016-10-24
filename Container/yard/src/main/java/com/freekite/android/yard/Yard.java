@@ -1,6 +1,7 @@
 package com.freekite.android.yard;
 
 import android.content.Context;
+import android.view.MotionEvent;
 
 import com.ddchen.bridge.messchunkpc.Messchunkpc;
 import com.ddchen.bridge.messchunkpc.Messchunkpc.Caller;
@@ -15,6 +16,7 @@ import java.util.Map;
 public class Yard {
     private Context context = null;
     private String tag = null;
+    private Caller caller = null;
 
     /**
      * @param context
@@ -37,7 +39,7 @@ public class Yard {
             }
         });
 
-        Caller caller = Messchunkpc.pc(this.context, channel, sandbox);
+        this.caller = Messchunkpc.pc(this.context, channel, sandbox);
         // call freekite apis from caller
     }
 
@@ -48,9 +50,11 @@ public class Yard {
      * @param infos
      */
     public void receive(String type, Object[] infos) {
-        System.out.println("-----------------Yard:receive------------------");
-        System.out.println(type);
-        System.out.println(infos);
-        System.out.println("-----------------------------------------------");
+        // get touch event
+        if (type.equals("dispatchTouchEvent:start")) {
+            this.caller.call("feedEvent", new Object[]{
+                    SerializeEvent.serialize((MotionEvent) infos[0])
+            }, null);
+        }
     }
 }
