@@ -218,7 +218,8 @@ public class Messchunkpc {
                     }
                 }
                 // construct request json
-                MessSender.send("{\n" +
+
+                String requestJson = "{\n" +
                         "    \"channel\": \"" + channel + "\",\n" +
                         "    \"data\": {\n" +
                         "        \"type\": \"request\",\n" +
@@ -231,7 +232,12 @@ public class Messchunkpc {
                         "            }\n" +
                         "        }\n" +
                         "    }\n" +
-                        "}");
+                        "}";
+                try {
+                    MessSender.send(new JSONObject(requestJson).toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         };
     }

@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuite name="com.android.freekite.patch.test.ExampleInstrumentedTest" tests="1" failures="0" errors="0" skipped="0" time="0.01" timestamp="2016-10-24T07:47:31" hostname="localhost">
+  <properties>
+    <property name="device" value="&lt;build&gt;(AVD) - 7.0" />
+    <property name="flavor" value="" />
+    <property name="project" value="aospPatch" />
+  </properties>
+  <testcase name="useAppContext" classname="com.android.freekite.patch.test.ExampleInstrumentedTest" time="0.0" />
+</testsuite>

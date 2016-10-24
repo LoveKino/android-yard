@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<testsuite name="com.android.freekite.patch.test.ExampleInstrumentedTest" tests="1" failures="0" errors="0" skipped="0" time="0.02" timestamp="2016-10-20T02:52:53" hostname="localhost">
-  <properties>
-    <property name="device" value="Nexus_5X_API_24(AVD) - 7.0" />
-    <property name="flavor" value="" />
-    <property name="project" value="aospPatch" />
-  </properties>
-  <testcase name="useAppContext" classname="com.android.freekite.patch.test.ExampleInstrumentedTest" time="0.001" />
-</testsuite>
