@@ -5,6 +5,7 @@
 
 # Package Files #
 *.jar
+!yard-dex.jar
 *.war
 *.ear
 
