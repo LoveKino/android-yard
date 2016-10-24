@@ -4,8 +4,8 @@
     "description": "android record & playback",
     "main": "index.js",
     "bin": {
-        "build-android-yard": "bin/build.js",
-        "deploy-android-yard": "bin/deploy.js",
+        "build-android-yard": "bin/build.sh",
+        "deploy-android-yard": "bin/deploy.sh",
         "deployYard-android-yard": "bin/deployYard.sh"
     },
     "directories": {
