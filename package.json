@@ -1,41 +1,36 @@
 {
-    "name": "android-yard",
-    "version": "0.0.2",
-    "description": "android record & playback",
-    "main": "index.js",
-    "bin": {
-        "build-android-yard": "bin/build.sh",
-        "deploy-android-yard": "bin/deploy.sh",
-        "deployYard-android-yard": "bin/deployYard.sh"
-    },
-    "directories": {
-        "test": "test"
-    },
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/LoveKino/android-yard.git"
-    },
-    "keywords": [
-        "android",
-        "record",
-        "playback"
-    ],
-    "author": "ddchen",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/LoveKino/android-yard/issues"
-    },
-    "homepage": "https://github.com/LoveKino/android-yard#readme",
-    "dependencies": {
-        "expand-android-api": "0.0.4",
-        "general-bridge": "0.0.1",
-        "spawnp": "0.0.1",
-        "stream-token-parser": "0.0.1"
-    },
-    "devDependencies": {
-        "mocha": "^3.1.2"
-    }
+  "name": "android-yard",
+  "version": "0.0.2",
+  "description": "android record & playback",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LoveKino/android-yard.git"
+  },
+  "keywords": [
+    "android",
+    "record",
+    "playback"
+  ],
+  "author": "ddchen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LoveKino/android-yard/issues"
+  },
+  "homepage": "https://github.com/LoveKino/android-yard#readme",
+  "dependencies": {
+    "expand-android-api": "0.0.4",
+    "general-bridge": "0.0.1",
+    "spawnp": "0.0.2",
+    "stream-token-parser": "0.0.1"
+  },
+  "devDependencies": {
+    "mocha": "^3.1.2"
+  }
 }
