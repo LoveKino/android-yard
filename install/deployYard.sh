@@ -44,3 +44,5 @@ adb shell chgrp $GROUP_NAME $HOOK_DIR
 
 adb shell chown $USER_NAME $HOOK_YARD_FILE_PATH
 adb shell chgrp $GROUP_NAME $HOOK_YARD_FILE_PATH
+
+echo "[deploy yard-dex.jar success]"
