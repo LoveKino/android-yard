@@ -6,6 +6,8 @@ cd $CUR_DIR;
 
 pushd ../Container;
 
+./updateLib.sh
+
 ./gradlew buildDependents
 
 popd

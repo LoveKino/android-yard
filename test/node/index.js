@@ -53,7 +53,7 @@ let lunchApp = (pkgName, mainPath, testPkgDir) => {
 };
 
 describe('index', () => {
-    it('call from app', () => {
+    it('call app\' api', () => {
         let testPkgName = 'com.freekite.android.yard.adbcontest2';
         let mainPath = `${testPkgName}.MainActivity`;
         let testFile = `/data/user/0/${testPkgName}/files/aosp_hook/command.json`;
@@ -71,7 +71,7 @@ describe('index', () => {
         });
     });
 
-    it('call app', () => {
+    it('call from app', () => {
         let testPkgName = 'com.freekite.android.yard.adbcontest1';
         let testFile = `/data/user/0/${testPkgName}/files/aosp_hook/command.json`;
         let testPkgDir = path.join(__dirname, '../../Adbcon');
@@ -85,6 +85,9 @@ describe('index', () => {
             test: (a, b) => {
                 a['new'] = b;
                 return a;
+            },
+            error: () => {
+                throw new Error('error test');
             }
         });
 

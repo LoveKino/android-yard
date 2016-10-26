@@ -45,5 +45,20 @@ public class MainActivity extends AppCompatActivity {
             public void handleError(JSONObject errorInfo) {
             }
         });
+
+        caller.call("error", new Object[]{}, new HandleCallResult() {
+            @Override
+            public void handle(Object json) {
+
+                System.out.println("++++===========================");
+                System.out.println(json);
+            }
+
+            @Override
+            public void handleError(JSONObject errorInfo) {
+                System.out.println("error:++++===========================");
+                System.out.println(errorInfo);
+            }
+        });
     }
 }

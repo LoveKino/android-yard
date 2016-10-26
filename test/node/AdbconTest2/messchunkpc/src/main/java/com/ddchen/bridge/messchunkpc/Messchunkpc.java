@@ -204,14 +204,14 @@ public class Messchunkpc {
                 // map id
                 idMap.put(id, handleCallResult);
 
-                String argsStr = null;
+                String argsStr = "";
                 for (int i = 0; i < args.length; i++) {
                     Object arg = args[i];
                     String argItem = "{" +
                             "\"type\":\"jsonItem\"," +
                             "\"arg\":" + arg.toString() +
                             "}";
-                    if (argsStr == null) {
+                    if (argsStr.equals("")) {
                         argsStr = argItem;
                     } else {
                         argsStr += "," + argItem;

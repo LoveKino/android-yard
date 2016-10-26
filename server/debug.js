@@ -18,6 +18,9 @@ let caller = connect(channel, {
     test: (a, b) => {
         a['new'] = b;
         return a;
+    },
+    error: () => {
+        throw new Error('error test');
     }
 });
 

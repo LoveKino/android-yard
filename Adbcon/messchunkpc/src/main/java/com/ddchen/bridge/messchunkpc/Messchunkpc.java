@@ -46,6 +46,10 @@ import java.util.UUID;
  * id: "1"
  * }
  * }
+ *
+ * TODO
+ *      1. queue support
+ *      2. resend if error happened
  */
 
 public class Messchunkpc {
@@ -100,16 +104,19 @@ public class Messchunkpc {
                     if (jObject.getString("type").equals("response")) {
                         JSONObject responseData = jObject.getJSONObject("data");
                         String id = responseData.getString("id");
-                        HandleCallResult handleCallResult = (HandleCallResult) idMap.get(id);
-                        if (handleCallResult != null) {
-                            if (responseData.has("error") && responseData.get("error") != null) {
-                                JSONObject errorInfo = (JSONObject) responseData.get("error");
-                                handleCallResult.handleError(errorInfo);
-                            } else {
-                                handleCallResult.handle(responseData.get("data"));
+                        if (idMap.containsKey(id)) {
+                            HandleCallResult handleCallResult = (HandleCallResult) idMap.get(id);
+                            if (handleCallResult != null) {
+                                if (responseData.has("error") && responseData.get("error") != null) {
+                                    JSONObject errorInfo = (JSONObject) responseData.get("error");
+                                    handleCallResult.handleError(errorInfo);
+                                } else {
+                                    handleCallResult.handle(responseData.get("data"));
+                                }
+                                idMap.remove(id);
                             }
-                            idMap.remove(id);
                         } else {
+                            System.out.println(idMap);
                             System.out.println("missing id " + id + " for id map." + "response json is " + jObject);
                         }
                     } else if (jObject.getString("type").equals("request")) {
@@ -204,14 +211,14 @@ public class Messchunkpc {
                 // map id
                 idMap.put(id, handleCallResult);
 
-                String argsStr = null;
+                String argsStr = "";
                 for (int i = 0; i < args.length; i++) {
                     Object arg = args[i];
                     String argItem = "{" +
                             "\"type\":\"jsonItem\"," +
                             "\"arg\":" + arg.toString() +
                             "}";
-                    if (argsStr == null) {
+                    if (argsStr.equals("")) {
                         argsStr = argItem;
                     } else {
                         argsStr += "," + argItem;

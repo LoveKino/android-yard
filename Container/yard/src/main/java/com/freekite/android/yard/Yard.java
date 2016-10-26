@@ -5,7 +5,10 @@ import android.view.MotionEvent;
 
 import com.ddchen.bridge.messchunkpc.Messchunkpc;
 import com.ddchen.bridge.messchunkpc.Messchunkpc.Caller;
+import com.ddchen.bridge.messchunkpc.Messchunkpc.HandleCallResult;
 import com.ddchen.bridge.messchunkpc.Messchunkpc.SandboxFunction;
+
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +20,7 @@ public class Yard {
     private Context context = null;
     private String tag = null;
     private Caller caller = null;
+    private String recordStatus = "stop";
 
     /**
      * @param context
@@ -30,12 +34,21 @@ public class Yard {
         String channel = "/data/user/0/" + pkgName + "/files/aosp_hook/command.json";
 
         Map sandbox = new HashMap();
-        // test
         // exports native apis to sandbox
-        sandbox.put("subtraction", new SandboxFunction() {
+        sandbox.put("startRecord", new SandboxFunction() {
             @Override
             public Object apply(Object[] args) {
-                return 100000;
+                System.out.println("+++******&&&&&&&&&&&&&&*");
+                Yard.this.recordStatus = "start";
+                return null;
+            }
+        });
+
+        sandbox.put("stopRecord", new SandboxFunction() {
+            @Override
+            public Object apply(Object[] args) {
+                Yard.this.recordStatus = "stop";
+                return null;
             }
         });
 
@@ -50,11 +63,23 @@ public class Yard {
      * @param infos
      */
     public void receive(String type, Object[] infos) {
-        // get touch event
+        // get touch event, at this moment, handlers are not executed yet.
         if (type.equals("dispatchTouchEvent:start")) {
-            this.caller.call("feedEvent", new Object[]{
-                    SerializeEvent.serialize((MotionEvent) infos[0])
-            }, null);
+            // send current state
+            if (Yard.this.recordStatus == "start") {
+                this.caller.call("feedEvent", new Object[]{
+                        SerializeEvent.serialize((MotionEvent) infos[0])
+                }, new HandleCallResult() {
+                    @Override
+                    public void handle(Object json) {
+                    }
+
+                    @Override
+                    public void handleError(JSONObject errorInfo) {
+                        System.out.println(errorInfo);
+                    }
+                });
+            }
         }
     }
 }

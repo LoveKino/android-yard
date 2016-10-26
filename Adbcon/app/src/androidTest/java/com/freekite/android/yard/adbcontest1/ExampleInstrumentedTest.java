@@ -153,4 +153,53 @@ public class ExampleInstrumentedTest {
         signal.await();
         assertNull(errors[0]);
     }
+
+    // logging data in two different chunks by using thread
+    @Test
+    public void callError() throws Exception {
+        final CountDownLatch signal = new CountDownLatch(1);
+        final Exception[] errors = {null};
+
+        // Context of the app under test.
+        Context appContext = InstrumentationRegistry.getTargetContext();
+        Caller caller = Messchunkpc.pc(appContext, channel, null);
+
+        caller.call("error", new Object[]{}, new HandleCallResult() {
+            @Override
+            public void handle(Object json) {
+                errors[0] = new Exception("unexpected");
+                signal.countDown();
+            }
+
+            @Override
+            public void handleError(JSONObject errorInfo) {
+                try {
+                    if(!errorInfo.getString("msg").equals("error test")) {
+                       throw new Exception("error msg is not error test");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    errors[0] = e;
+                } finally {
+                    signal.countDown();
+                }
+            }
+        });
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(10000);
+                    errors[0] = new Exception("timeout");
+                    signal.countDown();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        signal.await();
+        assertNull(errors[0]);
+    }
 }
