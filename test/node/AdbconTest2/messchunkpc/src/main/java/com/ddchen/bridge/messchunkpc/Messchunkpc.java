@@ -46,6 +46,10 @@ import java.util.UUID;
  * id: "1"
  * }
  * }
+ * <p>
+ * TODO
+ * 1. queue support
+ * 2. resend if error happened
  */
 
 public class Messchunkpc {
@@ -65,7 +69,7 @@ public class Messchunkpc {
         Object apply(Object[] args);
     }
 
-    public static Caller pc(Context context, final String channel, final Map sandbox) {
+    public static Caller pc(final Context context, final String channel, final Map sandbox) {
         MonitorCommand.monitor(context, new ExecuteCommand() {
             @Override
             public void execute(String command) {
@@ -100,16 +104,19 @@ public class Messchunkpc {
                     if (jObject.getString("type").equals("response")) {
                         JSONObject responseData = jObject.getJSONObject("data");
                         String id = responseData.getString("id");
-                        HandleCallResult handleCallResult = (HandleCallResult) idMap.get(id);
-                        if (handleCallResult != null) {
-                            if (responseData.has("error") && responseData.get("error") != null) {
-                                JSONObject errorInfo = (JSONObject) responseData.get("error");
-                                handleCallResult.handleError(errorInfo);
-                            } else {
-                                handleCallResult.handle(responseData.get("data"));
+                        if (idMap.containsKey(id)) {
+                            HandleCallResult handleCallResult = (HandleCallResult) idMap.get(id);
+                            if (handleCallResult != null) {
+                                if (responseData.has("error") && responseData.get("error") != null) {
+                                    JSONObject errorInfo = (JSONObject) responseData.get("error");
+                                    handleCallResult.handleError(errorInfo);
+                                } else {
+                                    handleCallResult.handle(responseData.get("data"));
+                                }
+                                idMap.remove(id);
                             }
-                            idMap.remove(id);
                         } else {
+                            System.out.println(idMap);
                             System.out.println("missing id " + id + " for id map." + "response json is " + jObject);
                         }
                     } else if (jObject.getString("type").equals("request")) {
@@ -142,7 +149,7 @@ public class Messchunkpc {
                                 response.put("channel", channel);
                                 response.put("data", wrapData);
 
-                                MessSender.send(response);
+                                MessSender.send(context, response);
                             } else {
                                 throw new Error("missing method " + methodName);
                             }
@@ -163,7 +170,7 @@ public class Messchunkpc {
                             response.put("channel", channel);
                             response.put("data", wrapData);
 
-                            MessSender.send(response);
+                            MessSender.send(context, response);
                         }
                     }
                 } catch (JSONException e) {
@@ -234,7 +241,7 @@ public class Messchunkpc {
                         "    }\n" +
                         "}";
                 try {
-                    MessSender.send(new JSONObject(requestJson).toString());
+                    MessSender.send(context, new JSONObject(requestJson).toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void handle(Object json) {
                 System.out.println("++++===========================");
+
                 System.out.println(json);
             }
 

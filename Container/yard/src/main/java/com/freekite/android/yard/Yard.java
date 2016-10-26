@@ -67,8 +67,11 @@ public class Yard {
         if (type.equals("dispatchTouchEvent:start")) {
             // send current state
             if (Yard.this.recordStatus == "start") {
+                MotionEvent ev = (MotionEvent) infos[0];
                 this.caller.call("feedEvent", new Object[]{
-                        SerializeEvent.serialize((MotionEvent) infos[0])
+                        // basic event info
+                        SerializeEvent.serialize(ev),
+                        SerializeNode.serialize(TargetViewFinder.find(ev), false)
                 }, new HandleCallResult() {
                     @Override
                     public void handle(Object json) {

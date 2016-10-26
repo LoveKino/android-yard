@@ -46,10 +46,10 @@ import java.util.UUID;
  * id: "1"
  * }
  * }
- *
+ * <p>
  * TODO
- *      1. queue support
- *      2. resend if error happened
+ * 1. queue support
+ * 2. resend if error happened
  */
 
 public class Messchunkpc {
@@ -69,7 +69,7 @@ public class Messchunkpc {
         Object apply(Object[] args);
     }
 
-    public static Caller pc(Context context, final String channel, final Map sandbox) {
+    public static Caller pc(final Context context, final String channel, final Map sandbox) {
         MonitorCommand.monitor(context, new ExecuteCommand() {
             @Override
             public void execute(String command) {
@@ -149,7 +149,7 @@ public class Messchunkpc {
                                 response.put("channel", channel);
                                 response.put("data", wrapData);
 
-                                MessSender.send(response);
+                                MessSender.send(context, response);
                             } else {
                                 throw new Error("missing method " + methodName);
                             }
@@ -170,7 +170,7 @@ public class Messchunkpc {
                             response.put("channel", channel);
                             response.put("data", wrapData);
 
-                            MessSender.send(response);
+                            MessSender.send(context, response);
                         }
                     }
                 } catch (JSONException e) {
@@ -241,7 +241,7 @@ public class Messchunkpc {
                         "    }\n" +
                         "}";
                 try {
-                    MessSender.send(new JSONObject(requestJson).toString());
+                    MessSender.send(context, new JSONObject(requestJson).toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
