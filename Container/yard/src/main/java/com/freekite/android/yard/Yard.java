@@ -33,12 +33,15 @@ public class Yard {
         String pkgName = this.context.getPackageName();
         String channel = "/data/user/0/" + pkgName + "/files/aosp_hook/command.json";
 
+        this.caller = Messchunkpc.pc(this.context, channel, getSandbox());
+    }
+
+    private Map getSandbox() {
         Map sandbox = new HashMap();
         // exports native apis to sandbox
         sandbox.put("startRecord", new SandboxFunction() {
             @Override
             public Object apply(Object[] args) {
-                System.out.println("+++******&&&&&&&&&&&&&&*");
                 Yard.this.recordStatus = "start";
                 return null;
             }
@@ -52,8 +55,14 @@ public class Yard {
             }
         });
 
-        this.caller = Messchunkpc.pc(this.context, channel, sandbox);
-        // call freekite apis from caller
+        sandbox.put("playback", new SandboxFunction() {
+            @Override
+            public Object apply(Object[] args) {
+                return null;
+            }
+        });
+
+        return sandbox;
     }
 
     /**
