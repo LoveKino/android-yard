@@ -56,9 +56,9 @@ public class SerializeNode {
 
             JSONObject styleWrapperInfo = new JSONObject();
             styleWrapperInfo.put("style", getStyle(view));
+            styleWrapperInfo.put("shape", getShape(view));
 
             nodeInfo.put("style", styleWrapperInfo);
-            nodeInfo.put("shape", getShape(view));
 
             JSONObject viewInfo = new JSONObject();
             viewInfo.put("node", nodeInfo);
