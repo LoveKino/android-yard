@@ -26,7 +26,7 @@
   "homepage": "https://github.com/LoveKino/android-yard#readme",
   "dependencies": {
     "expand-android-api": "0.0.4",
-    "general-bridge": "0.0.1",
+    "general-bridge": "0.0.4",
     "spawnp": "0.0.2",
     "stream-token-parser": "0.0.1"
   },
