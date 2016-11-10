@@ -1,6 +1,6 @@
 {
   "name": "android-yard",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "android record & playback",
   "main": "index.js",
   "directories": {
@@ -26,8 +26,8 @@
   "homepage": "https://github.com/LoveKino/android-yard#readme",
   "dependencies": {
     "expand-android-api": "0.0.4",
-    "general-bridge": "0.0.4",
-    "spawnp": "0.0.2",
+    "general-bridge": "0.0.5",
+    "spawnp": "^0.1.0",
     "stream-token-parser": "0.0.1"
   },
   "devDependencies": {
